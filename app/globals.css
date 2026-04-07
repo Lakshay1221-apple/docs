@@ -244,6 +244,127 @@
   }
 }
 
+/* Module & Part dropdown styles - outside @layer for proper specificity */
+.module-container {
+  padding: 1rem 0 1.5rem;
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.module-container + .module-container {
+  margin-top: 1.5rem;
+}
+
+.module-container:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.major-dropdown > summary {
+  font-size: 0.95rem !important;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  list-style: none;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-primary);
+  transition: all 0.3s ease;
+}
+
+.major-dropdown > summary:hover {
+  border-color: var(--color-accent-primary);
+}
+
+.major-dropdown > summary::-webkit-details-marker {
+  display: none;
+}
+
+.major-dropdown > summary::before {
+  content: '▶';
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-size: 0.65rem;
+  transition: transform 0.2s;
+}
+
+.major-dropdown[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.major-dropdown[open] > summary {
+  margin-bottom: 1.25rem;
+}
+
+.major-dropdown > p,
+.major-dropdown > strong {
+  margin-bottom: 1rem;
+  display: block;
+  line-height: 1.7;
+}
+
+.major-dropdown > hr {
+  margin: 1.5rem 0;
+  border-color: var(--color-border-secondary);
+}
+
+.sub-dropdown {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.sub-dropdown > summary {
+  font-size: 0.9rem !important;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem 0.5rem 1rem;
+  cursor: pointer;
+  list-style: none;
+  border-left: 3px solid var(--color-border-secondary);
+  background: rgba(255, 255, 255, 0.02);
+  transition: all 0.2s ease;
+}
+
+.sub-dropdown > summary:hover {
+  border-left-color: var(--color-accent-primary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.sub-dropdown[open] > summary {
+  margin-bottom: 1rem;
+  border-left-color: var(--color-accent-primary);
+}
+
+.sub-dropdown > summary::-webkit-details-marker {
+  display: none;
+}
+
+.sub-dropdown > summary::before {
+  content: '▶';
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-size: 0.6rem;
+  transition: transform 0.2s;
+}
+
+.sub-dropdown[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.sub-dropdown h4 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.sub-dropdown p,
+.sub-dropdown ul,
+.sub-dropdown ol {
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
+}
+
+.sub-dropdown pre {
+  margin-bottom: 1rem;
+}
+
 @layer utilities {
   .animate-fade-in {
     animation: fadeIn 0.6s var(--ease-out-expo) forwards;

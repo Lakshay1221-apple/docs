@@ -8,9 +8,17 @@ import type { Domain } from "@/types";
 
 interface DomainGridProps {
     domains: Domain[];
+    title?: string;
+    description?: string;
+    type?: "domains" | "notes";
 }
 
-export default function DomainGrid({ domains }: DomainGridProps) {
+export default function DomainGrid({ 
+    domains, 
+    title = "Explore Domains", 
+    description = "Choose a learning path and start building. Each domain includes structured roadmaps and in-depth notes.",
+    type = "domains"
+}: DomainGridProps) {
     const sectionRef = useRef<HTMLElement>(null);
     const headingRef = useRef<HTMLDivElement>(null);
 
@@ -36,18 +44,17 @@ export default function DomainGrid({ domains }: DomainGridProps) {
             <div className="container-docs">
                 <div ref={headingRef} className="mb-12 opacity-0">
                     <h2 className="text-2xl md:text-3xl font-bold text-text-primary mb-3">
-                        Explore Domains
+                        {title}
                     </h2>
                     <p className="text-text-secondary max-w-lg">
-                        Choose a learning path and start building. Each domain includes
-                        structured roadmaps and in-depth notes.
+                        {description}
                     </p>
                 </div>
 
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 list-none p-0">
                     {domains.map((domain, index) => (
                         <li key={domain.id}>
-                            <DomainCard domain={domain} index={index} />
+                            <DomainCard domain={domain} index={index} type={type} />
                         </li>
                     ))}
                 </ul>

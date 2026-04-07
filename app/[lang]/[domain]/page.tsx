@@ -47,6 +47,8 @@ export async function generateMetadata({ params }: PageProps) {
     };
 }
 
+import { Suspense } from "react";
+
 export default async function DomainHubPage({ params }: PageProps) {
     const { lang, domain: domainSlug } = await params;
     const currentLang = lang as "en" | "hi";
@@ -71,7 +73,9 @@ export default async function DomainHubPage({ params }: PageProps) {
     return (
         <PageTransition>
             <DomainHeader domain={domainData} />
-            <DomainTabs domainSlug={domainData.slug} roadmap={roadmap} notes={notesTree} />
+            <Suspense fallback={<div className="container-docs py-24 text-center">Loading Content...</div>}>
+                <DomainTabs domainSlug={domainData.slug} roadmap={roadmap} notes={notesTree} />
+            </Suspense>
         </PageTransition>
     );
 }

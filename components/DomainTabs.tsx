@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { useParams } from "next/navigation";
+import { useState, useRef, useEffect } from "react";
+import { useParams, useSearchParams } from "next/navigation";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
@@ -15,7 +15,9 @@ interface DomainTabsProps {
 }
 
 export default function DomainTabs({ domainSlug, roadmap, notes }: DomainTabsProps) {
-    const [activeTab, setActiveTab] = useState<"roadmaps" | "notes">("roadmaps");
+    const searchParams = useSearchParams();
+    const isNotesOnly = searchParams.get("tab") === "notes";
+    const [activeTab, setActiveTab] = useState<"roadmaps" | "notes">(isNotesOnly ? "notes" : "roadmaps");
     const indicatorRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const params = useParams();
@@ -23,11 +25,13 @@ export default function DomainTabs({ domainSlug, roadmap, notes }: DomainTabsPro
 
     // Animate the active tab indicator
     useGSAP(() => {
-        gsap.to(indicatorRef.current, {
-            x: activeTab === "roadmaps" ? 0 : "100%",
-            duration: 0.3,
-            ease: "power2.out",
-        });
+        if (indicatorRef.current) {
+            gsap.to(indicatorRef.current, {
+                x: activeTab === "roadmaps" ? 0 : "100%",
+                duration: 0.3,
+                ease: "power2.out",
+            });
+        }
     }, { dependencies: [activeTab] });
 
     // Handle content fade out/in when switching tabs
@@ -56,31 +60,39 @@ export default function DomainTabs({ domainSlug, roadmap, notes }: DomainTabsPro
 
     return (
         <div className="container-docs pb-24">
-            <div className="flex justify-center mb-12">
-                <div className="relative inline-flex p-1 bg-bg-secondary rounded-xl border border-border-secondary">
-                    {/* Animated background indicator */}
-                    <div
-                        ref={indicatorRef}
-                        className="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-bg-tertiary border border-border-primary rounded-lg shadow-sm"
-                    />
+            {/* Tab switchers - Hidden if in notes-only mode */}
+            {!isNotesOnly ? (
+                <div className="flex justify-center mb-12">
+                    <div className="relative inline-flex p-1 bg-bg-secondary rounded-xl border border-border-secondary">
+                        {/* Animated background indicator */}
+                        <div
+                            ref={indicatorRef}
+                            className="absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-bg-tertiary border border-border-primary rounded-lg shadow-sm"
+                        />
 
-                    <button
-                        onClick={() => handleTabChange("roadmaps")}
-                        className={`relative z-10 px-8 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200 ${activeTab === "roadmaps" ? "text-text-primary" : "text-text-tertiary hover:text-text-secondary"
-                            }`}
-                    >
-                        {currentLang === "hi" ? "Roadmaps" : "Roadmaps"}
-                    </button>
+                        <button
+                            onClick={() => handleTabChange("roadmaps")}
+                            className={`relative z-10 px-8 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200 ${activeTab === "roadmaps" ? "text-text-primary" : "text-text-tertiary hover:text-text-secondary"
+                                }`}
+                        >
+                            Roadmaps
+                        </button>
 
-                    <button
-                        onClick={() => handleTabChange("notes")}
-                        className={`relative z-10 px-8 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200 ${activeTab === "notes" ? "text-text-primary" : "text-text-tertiary hover:text-text-secondary"
-                            }`}
-                    >
-                        {currentLang === "hi" ? "Notes" : "Notes"}
-                    </button>
+                        <button
+                            onClick={() => handleTabChange("notes")}
+                            className={`relative z-10 px-8 py-2.5 text-sm font-medium rounded-lg transition-colors duration-200 ${activeTab === "notes" ? "text-text-primary" : "text-text-tertiary hover:text-text-secondary"
+                                }`}
+                        >
+                            Notes
+                        </button>
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <div className="mb-12 border-b border-border-primary/10 pb-8 text-center">
+                    <h2 className="text-2xl font-bold text-text-primary">Technical Documentation</h2>
+                    <p className="text-text-secondary mt-2">In-depth modules and notes for this domain.</p>
+                </div>
+            )}
 
             <div ref={containerRef} className="min-h-[400px]">
                 {activeTab === "roadmaps" ? (

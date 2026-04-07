@@ -10,7 +10,10 @@ export const SITE_CONFIG = {
 
 export const NAV_LINKS = [
     { label: "Home", href: "/" },
-    { label: "Domains", href: "/#domains" },
+    { label: "Domains", href: "/domains" },
+    { label: "Notes", href: "/notes" },
+    { label: "Cheatsheet", href: "/cheatsheet" },
+    { label: "Projects", href: "/projects" },
     { label: "GitHub", href: SITE_CONFIG.githubOrg, external: true },
 ] as const;
 

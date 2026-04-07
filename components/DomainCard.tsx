@@ -10,9 +10,10 @@ import type { Domain } from "@/types";
 interface DomainCardProps {
     domain: Domain;
     index: number;
+    type?: "domains" | "notes";
 }
 
-export default function DomainCard({ domain, index }: DomainCardProps) {
+export default function DomainCard({ domain, index, type = "domains" }: DomainCardProps) {
     const cardRef = useRef<HTMLAnchorElement>(null);
     const params = useParams();
     const currentLang = (params?.lang as string) === "hi" ? "hi" : "en";
@@ -34,7 +35,7 @@ export default function DomainCard({ domain, index }: DomainCardProps) {
     return (
         <Link
             ref={cardRef}
-            href={`/${currentLang}/${domain.slug}`}
+            href={`/${currentLang}/${domain.slug}${type === "notes" ? "?tab=notes" : ""}`}
             className="card group p-6 flex flex-col gap-5 opacity-0 hover:bg-bg-tertiary/40 transition-all duration-500 relative overflow-hidden isolate"
         >
             {/* Subtle glow behind the card on hover */}

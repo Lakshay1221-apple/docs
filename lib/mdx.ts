@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { getReadingTime, extractHeadings } from "./utils";
+import { getReadingTime, extractHeadings, extractModules } from "./utils";
 
 const contentDirectory = path.join(process.cwd(), "content");
 
@@ -10,7 +10,9 @@ export interface MDXNote {
     frontmatter: Record<string, string>;
     readingTime: number;
     headings: { id: string; title: string; level: number }[];
+    modules: { id: string; title: string; parts: { id: string; title: string; content: string }[] }[];
 }
+
 
 export async function getNoteContent(
     domainSlug: string,
@@ -32,5 +34,6 @@ export async function getNoteContent(
         frontmatter: data,
         readingTime: getReadingTime(content),
         headings: extractHeadings(content),
+        modules: extractModules(content),
     };
 }

@@ -1,13 +1,17 @@
+{/* ============================================================ */}
+{/* MODULE 0 START                                              */}
+{/* ============================================================ */}
+
 <div className="module-container">
 
 <details className="major-dropdown" open>
-<summary>MODULE 0: Programming & AI Mindset (Foundation)</summary>
+<summary><strong>MODULE 0: Programming & AI Mindset (Foundation)</strong></summary>
 
 **Goal:** You will stop thinking like "Syntactical Coders" and start thinking like "Problem Solvers." They will understand *why* Python won the AI war, how to set up a professional lab (environment), and the science of reproducibility.
 
 ---
 
-<details className="sub-dropdown">
+<details className="sub-dropdown" open>
 <summary>PART 1: The Reality of Python in AI</summary>
 
 #### 1. The Big Question: Why Python?
@@ -224,5 +228,389 @@ print(random.random())
 </details>
 
 </details>
+
+</div>
+
+{/* ============================================================ */}
+{/* MODULE 1 START                                              */}
+{/* ============================================================ */}
+
+<div className="module-container">
+
+<details className="major-dropdown" open>
+<summary><strong>MODULE 1: Core Python Fundamentals (Must-Master)</strong></summary>
+
+**Goal:** You can not write poetry if you don't know the alphabet. This module is about mastering the "Grammar" of Python so you never have to think about syntax again.
+
+---
+
+<details className="sub-dropdown">
+<summary>PART 1.1: Syntax & The Rules of the Game</summary>
+
+#### 1. Python Keywords (The "Restricted Area")
+
+Imagine you are naming your newborn baby. You can name him "Rahul" or "Steve". But you cannot name him "President" or "Police". Why? Because those are **Official Titles**.
+
+**Keywords** are Python's official titles. They have special meaning to the interpreter. You cannot use them as variable names.
+
+**The List:** `if`, `else`, `while`, `for`, `def`, `return`, `import`, `class`...
+
+- **Rule:** If you type a word and it turns **Purple/Blue** in VS Code, do NOT use it as a variable name.
+
+#### 2. Identifiers (Naming Things)
+
+If Keywords are the "Official Titles," **Identifiers** are the names *you* give to your variables, functions, and classes.
+
+**The Rules:**
+
+1. A-Z, a-z, 0-9, and `_` (underscore).
+2. **Cannot start with a number** (`1st_variable` is illegal).
+3. **Case Sensitive:** `Age` and `age` are two different variables.
+
+**Senior Engineer Wisdom (Naming Conventions):**
+
+- **Snake Case (`user_name`):** Used for variables and functions.
+- **Pascal Case (`UserProfile`):** Used ONLY for Classes.
+- **ALL CAPS (`MAX_LIMIT`):** Used for constants that never change.
+
+**✗ BAD (Junior Style):**
+
+```python
+x = 10 
+Fn = "John" # Cryptic. Nobody knows what this is.
+```
+
+**✓ GOOD (Senior Style):**
+
+```python
+user_age = 10
+first_name = "John" # Self-explanatory.
+```
+
+#### 3. Indentation & Blocks (The "Invisible" Braces)
+
+This is where C++/Java developers cry, and Python developers smile.
+
+**The Mental Model:**
+
+In C++ or Java, we use `{ }` (curly braces) to define a block of code (like a room).
+
+In Python, we use **Space** (Indentation).
+
+- **The Rule:** If lines of code align vertically, they belong to the same block (family).
+- **The Tab Key:** Standard is 4 spaces. Do not mix Tabs and Spaces.
+
+**Visualizing the Block:**
+
+```python
+if score > 50:
+    print("Pass")      # |
+    print("Good Job")  # |-> Inside the 'if' block
+print("Exam Over")     # Outside the block (Always runs)
+```
+
+**Common Error:** `IndentationError: expected an indented block`.
+
+- *Translation:* "You started a statement with `:`, but didn't indented the next line."
+
+#### 4. Comments vs. Docstrings (The Documentation)
+
+Code tells the computer *what* to do. Comments tell humans *why* you did it.
+
+- **Comments (`#`):** Notes for you or other developers. Ignored by Python.
+- **Docstrings (`"""..."""`):** The **User Manual**. It explains what a function *does* and what it *returns*.
+
+**✗ BAD (Useless Comment):**
+
+```python
+# Print hello
+print("Hello")
+```
+
+**✓ GOOD (Professional Docstring):**
+
+```python
+def calculate_area(radius):
+    """
+    Calculates the area of a circle.
+    Args: radius (int)
+    Returns: float
+    """
+    return 3.14 * radius * radius
+```
+
+- *Why use Docstrings?* When you hover over the function in VS Code later, this text pops up to help you.
+
+#### 5. Variables & Dynamic Typing (The "Magic" Box)
+
+In languages like C++ or Java, you have to tell the computer exactly what type of data you are storing.
+
+- C++: `int x = 10;` (Box `x` can ONLY hold integers).
+
+**Python is Dynamically Typed.**
+
+- Python: `x = 10`.
+- The Interpreter looks at `10` and says, "Oh, that looks like an Integer. I'll make `x` an integer."
+- Later: `x = "Hello"`.
+- The Interpreter says, "Okay, now `x` is a String."
+
+**The Danger:**
+
+Just because you *can* change types doesn't mean you *should*. It leads to bugs.
+
+#### 6. Type Casting (The Transformer)
+
+Sometimes Python guesses wrong, or we need to force a change.
+
+- **Implicit:** Python does it automatically (e.g., `5 + 2.0` becomes `7.0` float).
+- **Explicit:** You force it using constructors: `int()`, `float()`, `str()`.
+
+**The Most Common Bug in AI/ML:**
+
+Input data often comes as Strings (text). You cannot do math on text.
+
+```python
+# ✗ ERROR
+age = "20"
+next_year = age + 1 # TypeError: can only concatenate str (not "int") to str
+
+# ✓ FIXED
+age = "20"
+next_year = int(age) + 1 # Converts "20" to 20
+```
+
+#### 7. Input & Print (The Conversation)
+
+This is how your program talks to the world.
+
+- **`print()`:** Outputs data to the console.
+    - *Pro Tip:* Use **f-strings** (formatted strings) for clean output.
+    
+    ```python
+    name = "Shakil"
+    # Old Way (Ugly)
+    print("Hello " + name)
+    # Modern Way (Clean)
+    print(f"Hello {name}")
+    ```
+    
+- **`input()`:** Takes data from the user.
+    - **CRITICAL RULE:** `input()` **ALWAYS** returns a **STRING**. Even if you type a number.
+    
+    ```python
+    age = input("Enter age: ") # User types 25
+    print(type(age)) # <class 'str'>
+    ```
+    
+    - You must wrap it in `int()` if you want to do math: `age = int(input("Enter age: "))`
+
+</details>
+
+---
+
+<details className="sub-dropdown">
+<summary>PART 1.2: Data Types (The Atoms of Python)</summary>
+
+#### 1. The Numbers (int, float, complex)
+
+**A. Integers (`int`)**
+
+These are whole numbers. No decimals.
+
+- **The Superpower:** In C++ or Java, an Integer has a limit (e.g., 2 billion). If you go over, it crashes (Overflow).
+- **In Python:** There is **NO LIMIT**. You can have an integer with 5,000 zeros. Python automatically allocates more memory as the number grows.
+
+**Senior Tip (Readability):**
+
+Stop counting zeros with your finger. Use underscores.
+
+```python
+# ✗ BAD (Hard to read)
+salary = 10000000
+
+# ✓ GOOD (Instant readability)
+salary = 10_000_000  # Python ignores the underscores
+```
+
+**B. Floating Point Numbers (`float`)**
+
+Any number with a dot (`.`).
+
+- **The Trap:** Computers are bad at decimals. They store numbers in Binary (0s and 1s). Some numbers (like 0.1) cannot be represented perfectly in binary, just like 1/3 cannot be written perfectly in decimal (0.3333...).
+
+**The "Floating Point Error" (Classic Interview Trap):**
+
+```python
+print(0.1 + 0.2)
+# You expect: 0.3
+# Python gives: 0.30000000000000004
+```
+
+- **Why?** Because 0.1 is actually stored as 0.10000000000000000555... in memory.
+- **The Fix:** Never compare floats with `==`.
+    
+    ```python
+    # ✗ BAD
+    if (0.1 + 0.2) == 0.3: # False!
+    
+    # ✓ GOOD
+    import math
+    if math.isclose(0.1 + 0.2, 0.3): # True!
+    ```
+
+**C. Complex Numbers (`complex`)**
+
+Used in Electrical Engineering and Quantum Physics.
+
+- Math uses $i$ (imaginary unit). Python uses `j`.
+- Example: `z = 3 + 4j`.
+
+#### 2. Booleans (`bool`)
+
+The Logic Gates. Only two possible values: `True` or `False`.
+
+- **Note:** Capital `T` and `F`. Python is case-sensitive! (`true` is an error).
+
+**The Secret Identity:**
+
+Under the hood, `True` is actually `1` and `False` is actually `0`.
+
+```python
+print(True + True) # Output: 2
+print(False * 10)  # Output: 0
+```2
+
+- *Why does this matter?* In Data Science, you can sum a list of Booleans to count how many "True" values exist.
+    - `sum([True, False, True])` = 2.
+
+#### 3. NoneType (`None`)
+
+**The Void.**
+
+`None` is not `0`. It is not an empty string `""`. It is not `False`.
+
+- **Analogy:**
+    - `0`: The box is empty.
+    - `None`: **There is no box.**
+
+**Common Crash:**
+
+If a function doesn't return anything, it returns `None` by default.
+
+```python
+x = print("Hello") # print() displays text but returns Nothing.
+print(x) # Output: None
+```
+
+#### 4. Type Checking (The ID Card)
+
+How do we ask a variable "What are you?"
+
+**A. The `type()` function**
+
+Returns the class of the object. Good for debugging.
+
+```python
+x = 10
+print(type(x)) # <class 'int'>
+```
+
+**B. The `isinstance()` function (The Professional Way)**
+
+Why use this instead of `type()`? Because it respects inheritance (OOP concept).
+
+- **Rule:** Always use `isinstance()` in production code.
+
+**✗ BAD (Rigid):**
+
+```python
+if type(x) == int:
+    print("It is a number")
+```
+
+**✓ GOOD (Flexible & Robust):**
+
+```python
+if isinstance(x, int):
+    print("It is a number")
+```
+
+</details>
+
+---
+
+<details className="sub-dropdown">
+<summary>Senior Engineer Tips</summary>
+
+1. **Don't name variables `l`, `O`, or `I`**: They look like `1` and `0` in some fonts. Use `level`, `output`, `index`.
+2. **f-strings are faster**: `f"{var}"` is slightly faster than `var + " string"` and much more readable. Use them by default.
+3. **The `_` variable**: In the interactive shell (REPL), `_` stores the result of the last operation.
+    
+    ```python
+    >>> 5 + 5
+    10
+    >>> _ + 5
+    15
+    ```
+
+4. **Immutability:** Integers, Floats, Bools, and Strings are **Immutable**.
+    - If you say `x = 10`, then `x = x + 1`, Python doesn't change the number 10. It destroys the link to 10 and creates a NEW link to 11.
+5. **Truthy and Falsy:**
+    - You don't need to write `if my_list != []:`.
+    - Python treats empty things (0, 0.0, "", [], None) as **False**.
+    - Everything else is **True**.
+    
+    ```python
+    name = ""
+    if name: # Checks if name is not empty
+        print("Has name")
+    else:
+        print("No name") # This runs
+    ```
+
+</details>
+
+---
+
+<details className="sub-dropdown">
+<summary>Interview Questions (For Module 1)</summary>
+
+1. **Basic:** *What is the difference between a Comment and a Docstring?*
+    - **Answer:** A Comment (`#`) is for the developer to understand the logic. A Docstring (`"""`) is for the *user* of the function to understand how to use it (documentation).
+2. **Intermediate:** *Python is "Dynamically Typed". What does that mean?*
+    - **Answer:** It means variable types are checked at **Runtime**, not Compile time. A variable can change its type (e.g., from `int` to `str`) during execution.
+3. **Scenario:** *I ran `x = input()` and typed `10`. Then I did `x * 5` and got `1010101010`. Why?*
+    - **Answer:** `input()` returns a string `"10"`. Multiplying a string by 5 repeats it 5 times. You forgot to Type Cast: `x = int(input())`.
+4. **Basic:** *What is the result of `type(type(int))`?*
+    - **Answer:** `<class 'type'>`. Everything in Python is an object, even the types themselves.
+5. **Intermediate:** *Why is `0.1 + 0.2 == 0.3` False?*
+    - **Answer:** Floating point precision error. Computers convert decimals to binary approximations.
+6. **Advanced:** *What is the difference between `==` and `is`?*
+    - **Answer:**
+        - `==` checks **Value Equality** (Do they look the same?).
+        - `is` checks **Reference Equality** (Are they the exact same object in memory?).
+        - `None` should always be checked with `is` (e.g., `if x is None:`).
+
+</details>
+
+---
+
+<details className="sub-dropdown">
+<summary>Summary (The Takeaway)</summary>
+
+1. **Keywords are Reserved**: Never use Python keywords as variable names.
+2. **Indentation is Critical**: Python uses whitespace to define code blocks - 4 spaces is the standard.
+3. **Use Docstrings**: Document your functions professionally with triple quotes.
+4. **Dynamic Typing**: Variables can change types, but be careful - this can lead to bugs.
+5. **Type Casting Matters**: `input()` always returns strings - convert when needed.
+6. **Floating Point Precision**: Never use `==` to compare floats; use `math.isclose()`.
+7. **Truthy/Falsy Values**: Empty containers, 0, and None evaluate to False in conditions.
+
+**(End of Module 1 Notes)**
+
+</details>
+
+</details>
+
 
 </div>
